@@ -21,7 +21,7 @@ const GetATarotCard = async () => {
     console.log(horoscopeData);
     const daata = horoscopeData.res;
     return (
-        <div className="flex border rounded-md px-4 py-6 flex-col">
+        <div className="flex border rounded-md px-4 py-6 flex-col w-full">
           
             <div className="text-xl font-bold">Get a tarot card</div>
            
