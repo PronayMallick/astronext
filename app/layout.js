@@ -1,5 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Sidebar from "./ui/horoAlejandro/sidebar";
+import DailyPhrase from "./ui/horoAlejandro/components/dailyPhrase";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +15,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="mt-4">
+          
+          {/* <div className="text-center p-2"><DailyPhrase/></div> */}
+          <div className="text-center p-2">Daily phrase</div>
+
+          <div className="flex  m-3">
+            <div className="w-3/4 border m-2 rounded-md flex	">
+                {children}
+            </div>
+              <Sidebar/>
+          </div>
+
+        </div>
+      </body>
     </html>
   );
 }
