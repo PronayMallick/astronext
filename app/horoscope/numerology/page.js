@@ -1,40 +1,15 @@
-const getData = async () => {
 
-    const numb = 4;
-    const res = await fetch(`https://horoscope-astrology.p.rapidapi.com/numerology?n=${numb}`, {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'c9dc604005msh3be6b07701922ebp1f95fbjsn76c549b14a4f',
-            'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
-        },
-    })
+import NumerologyCompo from "@/components/numerologyCompo";
 
-    if(!res.ok) {
-        throw new Error("Something went wrong")
-    }
-   
-    return res.json()
+
+export default function Numerology() {
+  // Render data...
+ 
+  return (
+    <div className="w-full flex">
+        <NumerologyCompo/>
+    </div>
+  )
 }
+ 
 
-const Numerology = async () => {
-
-    const horoscopeData = await getData();
-    console.log("Numerology");
-    console.log(horoscopeData);
-    const daata = horoscopeData;
-    return (
-        <div className="m-4">
-            
-            <div className="text-xl font-bold">Numerology</div>
-
-            <div className="font-bold text-red-600 mt-2">Your Number</div>
-            <div className="text-sm text-slate-500">{daata.number}</div>
-
-            <div className="font-bold text-red-600 mt-2">About</div>
-            <div className="text-sm text-slate-500">{daata.desc}</div>
-            
-        </div>
-    )
-}
-
-export default Numerology;

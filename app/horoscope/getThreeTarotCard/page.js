@@ -7,9 +7,6 @@ const getData = async () => {
         },
     })
 
-    // if(!res.ok) {
-    //     throw new Error("Something went wrong")
-    // }
     console.log("Daily 1");
 
     return res.json()
@@ -22,7 +19,7 @@ const GetThreeTarotCard = async () => {
     console.log(horoscopeData);
     const daata = horoscopeData.res;
     return (    
-        <div className="m-4">
+        <div className="flex border rounded-md px-4 py-6 flex-col">
          
             <div className="text-xl font-bold">Get three tarot card</div>
 

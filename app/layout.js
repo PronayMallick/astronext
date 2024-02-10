@@ -18,11 +18,13 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className="mt-4">
           
-          {/* <div className="text-center p-2"><DailyPhrase/></div> */}
-          <div className="text-center p-2">Daily phrase</div>
+          <div className="text-center p-2">
+            <DailyPhrase/>
+          </div>
+          
 
-          <div className="flex  m-3">
-            <div className="w-3/4 border m-2 rounded-md flex	">
+          <div className="flex  m-4">
+            <div className="w-3/4 m-1 flex	">
                 {children}
             </div>
               <Sidebar/>

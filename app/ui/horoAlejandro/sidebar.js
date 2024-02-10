@@ -2,7 +2,7 @@ import Link from "next/link"
 export default function Sidebar() {
 
     return (
-        <div className="w-1/4 bg-amber-300 p-4 m-2 rounded-md text-sm">   
+        <div className="w-1/4 bg-amber-300 p-4 m-1 rounded-md text-sm">   
            
             <Link href="/horoscope/numerology">       
                 <div className="text-white px-4 py-2 border rounded-md my-2 bg-amber-500 hover:bg-amber-400 ">Numerology</div>
