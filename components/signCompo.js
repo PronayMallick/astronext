@@ -45,9 +45,8 @@ export default function SignCompo() {
     })
       const datat = await response.json();
       setData(datat);
-      console.log(data);
+      // console.log(data);
 
-     
     }
     
     fetchData();
@@ -61,7 +60,7 @@ export default function SignCompo() {
   }, []);
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full pb-10">
             
       <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
         <div id='outputDiv'>
@@ -103,7 +102,7 @@ export default function SignCompo() {
           </div>
         </div>
       </div>
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-200 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
                 <div className="flex flex-col px-4 pt-12 pb-10">
 
                     <div className="text-xs font-bold">Enter your Sign</div>

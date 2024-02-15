@@ -21,7 +21,7 @@ const DailyPhrase = async () => {
     console.log(horoscopeData.daily);
     const daata = horoscopeData.daily;
     return (
-        <div>
+        <div className="bg-slate-200 text-center px-2 pt-4 ">
             <div className="text-xl font-bold text-slate-500">Daily Phrase</div>
             <div className="text-slate-400 text-lg">{daata}</div>
         </div>

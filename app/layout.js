@@ -1,7 +1,11 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+
 import Sidebar from "./ui/horoAlejandro/sidebar";
 import DailyPhrase from "./ui/horoAlejandro/components/dailyPhrase";
+import Navbar from "@/components/ui/navbar";
+import IntroContent from "@/components/ui/introContent";
+import ServicesCompOne from "@/components/ui/servicesCompOne";
 
 
 
@@ -16,19 +20,37 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="mt-4">
-          
-          <div className="text-center p-2">
-            <DailyPhrase/>
+        <div className=" flex flex-col">
+
+          <div className="navbar">
+            <Navbar/>
+          </div>
+
+          <div className="introContent">
+            <IntroContent/>
+          </div>
+
+          <div className="serviceCompOne">
+            <ServicesCompOne/>
           </div>
           
+          {/* <div><DailyPhrase/></div> */}
+          
 
-          <div className="flex  m-4">
+
+
+
+
+
+          <div>{children}</div>
+          {/* <div className="flex  m-4 ">
             <div className="w-3/4 m-1 flex	">
                 {children}
             </div>
-              <Sidebar/>
-          </div>
+            <div className="w-1/4 bg-amber-300 p-4 m-1 rounded-md text-sm">
+             <Sidebar/>
+            </div>
+          </div> */}
 
         </div>
       </body>

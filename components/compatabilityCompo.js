@@ -18,7 +18,6 @@ export default function CompatabilityCompo() {
     {value: 'Capricorn' , text: 'Capricorn'},
     {value: 'Aquarius' , text: 'Aquarius'},
     {value: 'Pisces' , text: 'Pisces'},
-    
   ];
 
   const optionsB = [
@@ -35,13 +34,10 @@ export default function CompatabilityCompo() {
     {value: 'Capricorn' , text: 'Capricorn'},
     {value: 'Aquarius' , text: 'Aquarius'},
     {value: 'Pisces' , text: 'Pisces'},
-    
   ];
 
   const [signOne, setSignOne] = useState(optionsA[0].value);
   const [signTwo, setSignTwo] = useState(optionsB[0].value);
-
-
 
   const handleChangeA = event => {   
     setSignOne(event.target.value);
@@ -80,7 +76,6 @@ export default function CompatabilityCompo() {
     }
     
     fetchData();
-
   }
 }
   
@@ -92,11 +87,11 @@ export default function CompatabilityCompo() {
   }, []);
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full pb-10">
             
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
                <div id='outputDiv'>
-                    <div className="text-xl font-bold">Compatibility</div>
+              
           
                     {data.map( ( dat) => {
                        
@@ -113,7 +108,7 @@ export default function CompatabilityCompo() {
                </div>
             </div>
 
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-200 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
                 <div className="flex flex-col px-4 pt-12 pb-10">
 
                     <div className="text-xs font-bold">Your sign</div>

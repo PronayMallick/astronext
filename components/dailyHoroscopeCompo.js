@@ -58,7 +58,7 @@ export default function DailyHoroscopeCompo() {
         },
     })
       const datat = await response.json();
-      console.log(datat);
+      // console.log(datat);
       setData(datat);
      
     }
@@ -74,7 +74,7 @@ export default function DailyHoroscopeCompo() {
   }, []);
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full pb-10">
             
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
                <div id='outputDiv'>
@@ -83,13 +83,13 @@ export default function DailyHoroscopeCompo() {
                     <div className="m-4">
                         <div className="text-xl font-bold">Daily horoscope</div>
 
-                        <div className="font-bold text-red-600 mt-2">Date</div>
+                        {data.date && <div className="font-bold text-red-600 mt-2">Date</div>}
                         <div className="text-sm text-slate-500">{data.date}</div>
 
-                        <div className="font-bold text-red-600 mt-2">Week</div>
+                        {data.week && <div className="font-bold text-red-600 mt-2">Week</div>}
                         <div className="text-sm text-slate-500">{data.week}</div>
 
-                        <div className="font-bold text-red-600 mt-2">Sunsign</div>
+                        {data.sunsign && <div className="font-bold text-red-600 mt-2">Sunsign</div>}
                         <div className="text-sm text-slate-500">{data.sunsign}</div>
 
                         {/* <div className="font-bold text-red-600 mt-2">{data.areas[0].title}</div>
@@ -114,7 +114,7 @@ export default function DailyHoroscopeCompo() {
                </div>
             </div>
 
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-200 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
                 <div className="flex flex-col px-4 pt-12 pb-10">
 
                     <div className="text-xs font-bold">Enter day</div>
