@@ -28,8 +28,8 @@ export default function IntroContent() {
                     </div>
                     <div className="">
                         <div className="ast_bannertext_wrapper">
-                            <div className=" text-6xl pt-10 pb-4">Astrology Revels The Will Of God</div>
-                            <div className="flex justify-center text-2xl p-2">
+                            <div className="text-3xl md:text-6xl pt-10 pb-4">Astrology Revels The Will Of God</div>
+                            <div className="flex justify-center text-1xl md:text-2xl p-2">
                                 <div className="px-2">Horoscopes</div>
                                 <div>*</div>
                                 <div className="px-2">Gemstones</div>
