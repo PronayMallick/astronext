@@ -1,6 +1,7 @@
 import { faRightToBracket, faUserPlus, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Navbar() {
 
@@ -20,7 +21,11 @@ export default function Navbar() {
             <div className='logSign flex '>
                 <div className='logIn flex p-1 items-center mr-4'>
                     {/* <div className='w-3'><FontAwesomeIcon icon={faRightToBracket} style={{color: "#ff6f00",}} /></div> */}
-                    <div className='px-1 text-sm hover:text-amber-500 text-amber-600 font-bold'>myjemz.com</div>
+                    <div className='px-1 text-sm '>
+                        <Link href="https://myjemz.com/">
+                            <span className='text-black font-bold tracking-normal'>MY</span>
+                            <span className='hover:text-amber-500 text-amber-600 font-bold tracking-widest'>JEMZ</span></Link>
+                    </div>
                 </div>
 
                 {/* <div className='signUp flex p-1 items-center'>

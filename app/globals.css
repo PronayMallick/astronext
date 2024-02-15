@@ -74,8 +74,8 @@ overflow: hidden;
 padding: 100px 0px;
 /* background-color: rgb(255 255 255 / 53%); */
 }
-.ast_bannertext_wrapper{
-float:left;
+/* .ast_bannertext_wrapper{
+
 width:100%;
 }
 .ast_bannertext_wrapper h1{
@@ -123,7 +123,7 @@ margin:0px;
 }
 .ast_bannertext_wrapper img{
 display:inline-block;
-}
+} */
 .starfield {
 position: absolute;
 top:0;
