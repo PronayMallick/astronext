@@ -108,7 +108,7 @@ export default function CompatabilityCompo() {
                </div>
             </div>
 
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
                 <div className="flex flex-col px-4 pt-12 pb-10">
 
                     <div className="text-xs font-bold">Your sign</div>

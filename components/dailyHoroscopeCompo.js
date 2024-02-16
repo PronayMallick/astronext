@@ -78,10 +78,10 @@ export default function DailyHoroscopeCompo() {
             
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
                <div id='outputDiv'>
-                    <div className="text-xl font-bold">Compatibility</div>
+                    <div className="text-xl font-bold dark:text-slate-500">Daily Horoscope</div>
           
                     <div className="m-4">
-                        <div className="text-xl font-bold">Daily horoscope</div>
+                        
 
                         {data.date && <div className="font-bold text-red-600 mt-2">Date</div>}
                         <div className="text-sm text-slate-500">{data.date}</div>
@@ -114,7 +114,7 @@ export default function DailyHoroscopeCompo() {
                </div>
             </div>
 
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
                 <div className="flex flex-col px-4 pt-12 pb-10">
 
                     <div className="text-xs font-bold">Enter day</div>

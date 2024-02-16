@@ -164,17 +164,16 @@ export default function NumerologyCompo() {
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5" >
           
                <div id='outputDiv'>
-                    <div className="text-xl font-bold">Numerology</div>
-                    <div>Calculate Your Life Path Number:</div>
-                    <div className="font-bold text-red-600 mt-2">Your Number</div>
-                    <div className="text-sm text-slate-500">{data.number}</div>
+                    <div className='dark:text-slate-500'>Calculate Your Life Path Number:</div>
+                    {data.number == Number && <div className="font-bold text-red-600 mt-2">Your Number</div>}
+                    <div className="text-sm text-slate-500">{data.number === true  && data.number}</div>
 
-                    <div className="font-bold text-red-600 mt-2">About</div>
+                    {data.desc && <div className="font-bold text-red-600 mt-2">About</div>}
                     <div className="text-sm text-slate-500">{data.desc}</div>
                </div>
             </div>
 
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
 
                 <div className="flex flex-col px-4 pt-12 pb-10">
 

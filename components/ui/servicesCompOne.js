@@ -36,7 +36,7 @@ export default function ServicesCompOne() {
           
             <div className="serviceCards flex">
 
-                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-4" onClick={()=> showCompo("Numerology")}>
+                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-2 lg:mx-4" onClick={()=> showCompo("Numerology")}>
                     <div className='w-full h-24 bg-slate-200 rounded-t-lg flex justify-center items-center hover:bg-slate-100'>
                         <Image
                             src="/images/icons/icons8-numbers-30.png"
@@ -51,7 +51,7 @@ export default function ServicesCompOne() {
                     </div>                
                 </div>
 
-                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-4" onClick={()=> showCompo("TarotOne")}>
+                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-2 lg:mx-4" onClick={()=> showCompo("TarotOne")}>
                     <div className='w-full h-24 bg-slate-200 rounded-t-lg flex justify-center items-center hover:bg-slate-100'>
                         <Image
                             src="/images/icons/icons8-tarot-cards-64-1.png"
@@ -66,7 +66,7 @@ export default function ServicesCompOne() {
                     </div>
                 </div>
 
-                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-4" onClick={()=> showCompo("TarotThree")}>
+                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-2 lg:mx-4" onClick={()=> showCompo("TarotThree")}>
                     <div className='w-full h-24 bg-slate-200 rounded-t-lg flex justify-center items-center hover:bg-slate-100'>
                         <Image
                             src="/images/icons/icons8-tarot-cards-64.png"
@@ -85,7 +85,7 @@ export default function ServicesCompOne() {
 
             <div className="serviceCards flex">
               
-                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-4" onClick={()=> showCompo("Sign")}>
+                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-2 lg:mx-4" onClick={()=> showCompo("Sign")}>
                     <div className='w-full h-24 bg-slate-200 rounded-t-lg flex justify-center items-center hover:bg-slate-100'>
                         <Image
                             src="/images/icons/sign.png"
@@ -100,7 +100,7 @@ export default function ServicesCompOne() {
                     </div>                
                 </div>
               
-                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-4" onClick={()=> showCompo("Compatibility")}>
+                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-2 lg:mx-4" onClick={()=> showCompo("Compatibility")}>
                     <div className='w-full h-24 bg-slate-200 rounded-t-lg flex justify-center items-center hover:bg-slate-100'>
                         <Image
                             src="/images/icons/compatibility.png"
@@ -115,7 +115,7 @@ export default function ServicesCompOne() {
                     </div>                
                 </div>
 
-                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-4" onClick={()=> showCompo("DailyHoroscope")}>
+                <div className="serviceCard w-28 h-40 m-2 text-sm md:mx-2 lg:mx-4" onClick={()=> showCompo("DailyHoroscope")}>
                     <div className='w-full h-24 bg-slate-200 rounded-t-lg flex justify-center items-center hover:bg-slate-100'>
                         <Image
                             src="/images/icons/horoscope.png"
@@ -135,7 +135,7 @@ export default function ServicesCompOne() {
         </div>
 
         <div className="service  bg-slate-200 px-4 pb-5 pt-12">
-            <div className='pb-4 text-2xl font-bold'>{serviceTitle}</div>
+            <div className='pb-4 text-2xl font-bold dark:text-slate-500'>{serviceTitle}</div>
             <div>
                 {showService}
                

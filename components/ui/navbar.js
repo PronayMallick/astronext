@@ -6,13 +6,17 @@ import Link from 'next/link'
 export default function Navbar() {
 
     return (
-        <div className="flex justify-between p-3">
+        <div className="flex justify-between p-3 dark:bg-slate-100">
             <div className='logo flex items-center pl-4'>
                 {/* <div className='w-8'><FontAwesomeIcon icon={faSnowflake} style={{color: "#ff6f00",}} /></div> */}
                 <Image
                     src="/images/icons/logo.png"
                     width={40}
                     height={40}
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                      }}
                     alt="Picture of the author"
                 />
                 {/* <div className='pl-2 tracking-widest text-md hover:text-amber-500 text-amber-600'>MYJEMZ</div> */}

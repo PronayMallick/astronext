@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react';
 
 export default function SignCompo() {
+
   const [data, setData] = useState([]);
+  const [blankValue, setBlankValue] = useState();
 
   const options = [
     {value: 0 , text: 'Select any'},
@@ -27,8 +29,11 @@ export default function SignCompo() {
   };
 
   function fdata() {
-
+    console.log('test blank');
+    console.log(signOne);
+   
     if(signOne === 0) {
+      
       document.getElementById("outputDiv").style.display = "none"; 
     } else {
       document.getElementById("outputDiv").style.display = "block";
@@ -54,9 +59,7 @@ export default function SignCompo() {
   
 
   useEffect(() => {
-
    fdata();
-
   }, []);
 
   return (
@@ -65,7 +68,7 @@ export default function SignCompo() {
       <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
         <div id='outputDiv'>
           <div className="m-4">
-            <div className="text-xl font-bold">Sign</div>  
+            <div className="text-xl font-bold dark:text-slate-500">{signOne}</div>  
 
             <div className="font-bold text-red-600 mt-2">About</div>
             <div className="text-sm text-slate-500">{data.about}</div>
@@ -102,7 +105,7 @@ export default function SignCompo() {
           </div>
         </div>
       </div>
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md">
+            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
                 <div className="flex flex-col px-4 pt-12 pb-10">
 
                     <div className="text-xs font-bold">Enter your Sign</div>
@@ -114,7 +117,9 @@ export default function SignCompo() {
                         </option>
                       ))}
                     </select>
-
+                   
+                   
+                    <div>{blankValue}</div>
                     <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" onClick={fdata}>Submit</button>
                    
                 </div>
