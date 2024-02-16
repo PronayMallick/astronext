@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function Navbar() {
 
     return (
-        <div className="flex justify-between p-3 dark:bg-slate-100">
+        <div className="flex justify-between p-3 bg-black">
             <div className='logo flex items-center pl-4'>
                 {/* <div className='w-8'><FontAwesomeIcon icon={faSnowflake} style={{color: "#ff6f00",}} /></div> */}
                 <Image
@@ -27,8 +27,8 @@ export default function Navbar() {
                     {/* <div className='w-3'><FontAwesomeIcon icon={faRightToBracket} style={{color: "#ff6f00",}} /></div> */}
                     <div className='px-1 text-sm '>
                         <Link href="https://myjemz.com/">
-                            <span className='text-black font-bold tracking-normal'>MY</span>
-                            <span className='hover:text-amber-500 text-amber-600 font-bold tracking-widest'>JEMZ</span></Link>
+                            {/* <span className='text-black font-bold tracking-normal'>MY</span> */}
+                            <span className='hover:text-amber-500 text-amber-600 font-bold tracking-widest'>MYJEMZ</span></Link>
                     </div>
                 </div>
 

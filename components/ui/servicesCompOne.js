@@ -306,7 +306,7 @@ export default function ServicesCompOne() {
             </div>
         </div>
 
-        <div className='bg-slate-200 px-8 py-20 text-sm'>
+        <div className='bg-slate-200 px-8 py-20 text-sm dark:text-slate-500'>
             <div>
                 <div className="text-3xl pb-2 text-orange-600">Numerology</div>
                 <div className='py-1'>Numerology is a belief in the mystical significance of numbers and their influence on various aspects of life. It's based on the idea that each number has a specific vibration and energy that can affect a person's personality, behavior, and life path. Numerology is often associated with the idea that numbers can reveal insights into a person's character, destiny, and even relationships.</div>
