@@ -1,11 +1,13 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Sidebar from "./ui/horoAlejandro/sidebar";
-import DailyPhrase from "./ui/horoAlejandro/components/dailyPhrase";
 import Navbar from "@/components/ui/navbar";
 import IntroContent from "@/components/ui/introContent";
 import ServicesCompOne from "@/components/ui/servicesCompOne";
+import Test from "@/components/test";
+import Test2 from "@/components/test2";
+import Test3 from "@/components/test3";
+import Test4 from "@/components/test4";
 
 
 
@@ -29,17 +31,13 @@ export default function RootLayout({ children }) {
           <div className="introContent">
             <IntroContent/>
           </div>
+          {/* <div><Test3/></div> */}
 
           <div className="serviceCompOne">
             <ServicesCompOne/>
           </div>
           
           {/* <div><DailyPhrase/></div> */}
-          
-
-
-
-
 
 
           <div>{children}</div>

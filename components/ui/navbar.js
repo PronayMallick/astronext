@@ -13,10 +13,7 @@ export default function Navbar() {
                     src="/images/icons/logo.png"
                     width={40}
                     height={40}
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                      }}
+                    style={{ width: '100%', height: 'auto' }}
                     alt="Picture of the author"
                 />
                 {/* <div className='pl-2 tracking-widest text-md hover:text-amber-500 text-amber-600'>MYJEMZ</div> */}

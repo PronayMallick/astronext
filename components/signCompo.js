@@ -41,13 +41,13 @@ export default function SignCompo() {
 
     async function fetchData() {
         
-        const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/sign?s=${signOne}`, {
+      const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/sign?s=${signOne}`, {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': 'c9dc604005msh3be6b07701922ebp1f95fbjsn76c549b14a4f',
             'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
         },
-    })
+      })
       const datat = await response.json();
       setData(datat);
       // console.log(data);

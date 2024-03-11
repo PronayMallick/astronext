@@ -1,5 +1,6 @@
 'use client'
-import { useState, useEffect } from 'react';
+import Loading from '@/app/loading';
+import { useState, useEffect, Suspense } from 'react';
 import DatePicker from "react-datepicker";    
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -26,26 +27,38 @@ export default function NumerologyCompo() {
   // const [selected, setSelected] = useState(options[0].value);  
   
   const [numFinal, setNumFinal] = useState();
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
+
+  
   
 
-  // const handleChange = event => {
-  //   setSelected(event.target.value);
+  const handleChange = event => {
     
-  // };
+    setNumCatcher(event.target.value);
+    console.log("numCatcher");
+    console.log(numCatcher);
+  };
 
-  const generateNum = (event) => {
+  const [numCatcher, setNumCatcher] = useState('Enter Date');
+
+
+  // const generateSingleDigit = () => {
+  //   console.log('Calculated number');
+  //   console.log(numCatcher);
+  // }
+
+  const generateSingleDigit = () => {
    
-      setStartDate(event.target.value);
-      console.log(startDate);
+      // setStartDate(numcal);
+      // console.log(startDate);
       let nums = [];
       let sum = 0;
       console.log('function abc')
-      console.log(startDate);
+      console.log(numCatcher);
       function abc() {
-        for (let i = 0; i < startDate.length; i++) {
-          if (!isNaN(Number(startDate[i]))) {
-            nums.push(Number(startDate[i]));
+        for (let i = 0; i < numCatcher.length; i++) {
+          if (!isNaN(Number(numCatcher[i]))) {
+            nums.push(Number(numCatcher[i]));
           }
         }
       }
@@ -61,9 +74,9 @@ export default function NumerologyCompo() {
 
       setNumFinal(finalValTwo);
 
-      console.log("final value st");
-      console.log(numFinal);  
-      console.log("final value ed");
+      // console.log("final value st");
+      // console.log(numFinal);  
+      // console.log("final value ed");
      
     
   }
@@ -125,11 +138,6 @@ export default function NumerologyCompo() {
     
     async function fetchData() {
 
-        if(numFinal=== 0) {
-          document.getElementById("outputDiv").style.display = "none"; 
-        } else {
-          document.getElementById("outputDiv").style.display = "block";
-        }
         
         const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/numerology?n=${numFinal}`, {
         method: 'GET',
@@ -139,15 +147,18 @@ export default function NumerologyCompo() {
         },
     })
       const data = await response.json();
+      if(!response.ok) {
+        throw new Error("Something went wrong")
+        // setSignOne('Enter Sign')
+       }
       setData(data);
+      // console.log(data);
+      // console.log(data.number);
     } 
     fetchData();
   }
   
 
-
- 
-  
   // Test it
   // console.log(sumDigitsFromString(startDate));
 
@@ -162,17 +173,18 @@ export default function NumerologyCompo() {
     <div className="flex w-full pb-10">
             
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5" >
-          
+         
                <div id='outputDiv'>
-                    <div className='dark:text-slate-500'>Calculate Your Life Path Number:</div>
-                    {data.number == Number && <div className="font-bold text-red-600 mt-2">Your Number</div>}
+                    {data.number === Number && <div className='dark:text-slate-500'>Calculate Your Life Path Number:</div>}
+                    {data.number === Number && <div className="font-bold text-red-600 mt-2">Your Number</div>}
                     <div className="text-sm text-slate-500">{data.number === true  && data.number}</div>
 
                     {data.desc && <div className="font-bold text-red-600 mt-2">About</div>}
                     <div className="text-sm text-slate-500">{data.desc}</div>
                </div>
+              
             </div>
-
+          
             <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
 
                 <div className="flex flex-col px-4 pt-12 pb-10">
@@ -181,8 +193,8 @@ export default function NumerologyCompo() {
                     {/* <div className="text-xs">from 1 to 11</div> */}
 
                     {/* <input type='date' asp-format="{0:yyyy-MM-dd}"   onChange={(e) => setNumber(e)} /> */}
-                    <input type='date' asp-format="{0:yyyy-MM-dd}"   onChange={(e) => generateNum(e)} />
-                      <button className='bg-slate-300 text-xs py-1 rounded-md mt-2' onClick={generateNum}>Generate your Number</button>
+                    <input type='date' asp-format="{0:yyyy-MM-dd}"   onChange={ handleChange} />
+                      <button className='bg-slate-300 text-xs py-1 rounded-md mt-2' onClick={generateSingleDigit}>Generate your Number</button>
                       {numFinal>0 && <div className="text-xs font-bold py-2 " >Your Number is: {numFinal} <br/>
                       <button className="w-28 rounded-md bg-slate-400 mt-2 hover:bg-slate-500 text-white text-sm p-1" onClick={fdata}>See your Numerology</button>
                       </div>}

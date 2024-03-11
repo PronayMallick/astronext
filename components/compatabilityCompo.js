@@ -5,7 +5,7 @@ export default function CompatabilityCompo() {
   const [data, setData] = useState([]);
  
   const optionsA = [
-    {value: false , text: 'Select any'},
+    {value: 'Not selected' , text: 'Select'},
     {value: 'Aries' , text: 'Aries'},
     {value: 'Taurus' , text: 'Taurus'},
     {value: 'Gemini' , text: 'Gemini'},
@@ -21,7 +21,7 @@ export default function CompatabilityCompo() {
   ];
 
   const optionsB = [
-    {value: false , text: 'Select any'},
+    {value: 'Not selected' , text: 'Select'},
     {value: 'Aries' , text: 'Aries'},
     {value: 'Taurus' , text: 'Taurus'},
     {value: 'Gemini' , text: 'Gemini'},
@@ -39,27 +39,31 @@ export default function CompatabilityCompo() {
   const [signOne, setSignOne] = useState(optionsA[0].value);
   const [signTwo, setSignTwo] = useState(optionsB[0].value);
 
-  const handleChangeA = event => {   
-    setSignOne(event.target.value);
+  const sOne = event => {   
+    setSignOne(event);
+    console.log(event);
   };
-  const handleChangeB = event => {   
-    setSignTwo(event.target.value);
-  };
+  // const handleChangeB = event => {   
+  //   setSignTwo(event.target.value);
+  // };
 
-  function fdata() {
+  async function fdata() {
 
-    if(signOne === false && signTwo === false) {
-    return
-    }
-     else if (signOne === false) {
-      return
-     }
-     else if(signTwo === false) {
-      return
-     } else
-    {
+    console.log('Ip 1 fdata')
+    console.log(signOne)
+    console.log('Ip 2 fdata')
+    console.log(signTwo)
     
-    async function fetchData() {
+    
+    // async function fetchData() {
+
+      if( signOne === "Not selected" && <span className='text-red-400'>{signOne}</span> || signTwo === "Not selected") {
+        // console.log('s1-f s2-f')
+      
+      return
+      }
+       else {
+       
         const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/affinity?sign1=${signOne}&sign2=${signTwo}`, {
         method: 'GET',
         headers: {
@@ -67,21 +71,29 @@ export default function CompatabilityCompo() {
             'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
         },
     })
+
+  
       const datat = await response.json();
-       if(!response.ok) {
-        throw new Error("Something went wrong")
-       }
       console.log(datat);
-      setData(datat);
+     
+       if(!response.error) {
+        // throw new Error("Something went wrong")
+        console.log(datat.error);
+        setData(datat);
+       } 
+      
     }
     
-    fetchData();
-  }
+    
+  // }
+  // fetchData();
+  
 }
   
 
   useEffect(() => {
-
+    // setSignOne();
+    // setSignTwo();
    fdata();
 
   }, []);
@@ -91,9 +103,9 @@ export default function CompatabilityCompo() {
             
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
                <div id='outputDiv'>
-              
-          
-                    {data.map( ( dat) => {
+                    
+                   
+                    {!data.error && data.map( ( dat) => {
                        
                         return (
                             <div key={dat.header}>
@@ -113,23 +125,29 @@ export default function CompatabilityCompo() {
 
                     <div className="text-xs font-bold">Your sign</div>
                     
-                    <select className="text-sm border rounded-md w-20 mt-1 p-1" value={signOne} onChange={handleChangeA}  >
-                      {optionsA.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.text}
-                        </option>
-                      ))}
-                    </select>
+                    <div>
+                      <select className="text-sm border rounded-md w-20 mt-1 p-1 mr-2" value={signOne} onChange={event => sOne(event.target.value)}  >
+                        {optionsA.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.text}
+                          </option>
+                        ))}
+                      </select>
+                      <span className='text-xs'>{signOne}</span>
+                    </div>
 
                     <div className="text-xs font-bold mt-2">Partner's sign</div>
 
-                    <select className="text-sm border rounded-md w-20 my-1 p-1" value={signTwo} onChange={handleChangeB} >
-                      {optionsB.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.text}
-                        </option>
-                      ))}
-                    </select>
+                    <div>
+                      <select className="text-sm border rounded-md w-20 my-1 p-1 mr-2" value={signTwo} onChange={ event => setSignTwo(event.target.value)} >
+                        {optionsB.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.text}
+                          </option>
+                        ))}
+                      </select>
+                      <span className='text-xs'>{signTwo}</span>
+                    </div>
 
                     <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={fdata}>Submit</button>
                    

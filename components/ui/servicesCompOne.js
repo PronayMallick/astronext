@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import Image from 'next/image'
 import CompatabilityCompo from '../compatabilityCompo'
 import NumerologyCompo from '../numerologyCompo'
@@ -7,6 +7,7 @@ import SignCompo from '../signCompo'
 import DailyHoroscopeCompo from '../dailyHoroscopeCompo'
 import TarotOne from '../tarotOne'
 import TarotThree from '../tarotThree'
+import Loading from '@/app/loading'
 
 
 
@@ -17,7 +18,11 @@ export default function ServicesCompOne() {
 
     const showCompo = (comp) => {
         
-        if(comp === "Numerology") { setShowService(<NumerologyCompo/>); setServiceTitle(comp) } 
+        if(comp === "Numerology") { setShowService(
+            <Suspense fallback={<Loading/>}>
+                <NumerologyCompo/>
+            </Suspense>
+        ); setServiceTitle(comp) } 
         else 
         if(comp === "Compatibility") { setShowService(<CompatabilityCompo/>); setServiceTitle(comp) }
         else 
@@ -153,7 +158,7 @@ export default function ServicesCompOne() {
                     <div className='pb-3 text-slate-500 text-xs '>
                         <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>
                                     <Image 
                                         width={50}
@@ -162,10 +167,13 @@ export default function ServicesCompOne() {
                                         alt="Picture of the author"
                                     />
                                 </div>
-                                <div className='p-1'>Aries (March 21 - April 19)</div>
+                                <div className='pt-2'>
+                                    <div className='text-center'> Aries</div> 
+                                    <div className='text-center'>(March 21 - April 19)</div>
+                                </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>
                                     <Image 
                                         width={50}
@@ -174,10 +182,13 @@ export default function ServicesCompOne() {
                                         alt="Picture of the author"
                                     /> 
                                 </div>
-                               <div className='p-1'> Taurus (April 20 - May 20)</div>
+                                <div className='p-2'>
+                                    <div className='text-center'>Taurus</div>
+                                    <div className='text-center'>(April 20 - May 20)</div>
+                                </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>
                                     <Image 
                                         width={50}
@@ -186,10 +197,13 @@ export default function ServicesCompOne() {
                                         alt="Picture of the author"
                                     /> 
                                </div>
-                               <div className='p-1'> Gemini (May 21 - June 20)</div>
+                                <div className='p-2'>
+                                    <div className='text-center'>Gemini</div>
+                                    <div className='text-center'>(May 21 - June 20)</div>
+                               </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'> 
                                     <Image 
                                         width={50}
@@ -198,10 +212,13 @@ export default function ServicesCompOne() {
                                         alt="Picture of the author"
                                     /> 
                                 </div>
-                               <div className='p-1'>Cancer (June 21 - July 22)</div>
+                                <div className='p-2'>
+                                    <div className='text-center'>Cancer</div>
+                                    <div className='text-center'>(June 21 - July 22)</div>
+                                </div>
                             </div>
 
-                           <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                           <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'> 
                                 <Image 
                                     width={50}
@@ -210,10 +227,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 /> 
                                 </div>
-                               <div className='p-1'>Leo (July 23 - August 22)</div>
+                               <div className='p-2'>
+                                    <div className='text-center'>Leo</div>
+                                    <div className='text-center'>(July 23 - August 22)</div>
+                               </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'> 
                                 <Image 
                                     width={50}
@@ -222,10 +242,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 /> 
                                  </div>
-                               <div className='p-1'>Virgo (August 23 - September 22) </div> 
+                               <div className='p-2'>
+                                    <div className='text-center'>Virgo</div>
+                                    <div className='text-center'>(August 23 - September 22)</div>
+                                </div> 
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>
                                 <Image 
                                     width={50}
@@ -234,10 +257,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 /> 
                                 </div>
-                               <div className='p-1'>Libra (September 23 - October 22)</div>
+                               <div className='p-2'>
+                                    <div className='text-center'>Libra</div>
+                                    <div className='text-center'>(September 23 - October 22)</div>
+                               </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'> 
                                 <Image 
                                     width={50}
@@ -246,10 +272,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 /> 
                                 </div>
-                               <div className='p-1'>Scorpio (October 23 - November 21)</div>
+                               <div className='p-2'>
+                                    <div className='text-center'>Scorpio</div>
+                                    <div className='text-center'>(October 23 - November 21)</div>
+                               </div>
                             </div>  
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>  
                                 <Image 
                                     width={50}
@@ -258,10 +287,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 />
                                 </div>
-                               <div className='p-1'>Sagittarius (November 22 - December 21)</div>
+                               <div className='p-2'>
+                                    <div className='text-center'>Sagittarius</div>
+                                    <div className='text-center'>(November 22 - December 21)</div>
+                               </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>   
                                 <Image 
                                     width={50}
@@ -270,10 +302,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 />
                                 </div>
-                                <div className='p-1'>Capricorn (December 22 - January 19)</div>
+                                <div className='p-2'>
+                                    <div className='text-center'>Capricorn</div>
+                                    <div className='text-center'>(December 22 - January 19)</div>
+                                </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'>    
                                 <Image 
                                     width={50}
@@ -282,10 +317,13 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 />
                                 </div>
-                                <div className='p-1'>Aquarius (January 20 - February 18)</div>
+                                <div className='p-2'>
+                                    <div className='text-center'>Aquarius</div>
+                                    <div className='text-center'>(January 20 - February 18)</div>
+                                </div>
                             </div>
 
-                            <div className='p-1 m-1 bg-slate-200 flex flex-col rounded-lg'> 
+                            <div className='pt-4 pb-2 m-1 bg-slate-200 flex flex-col rounded-lg'> 
                                 <div className='flex justify-center'> 
                                 <Image 
                                     width={50}
@@ -294,7 +332,10 @@ export default function ServicesCompOne() {
                                     alt="Picture of the author"
                                 />
                                 </div>
-                                <div className='p-1'>Pisces (February 19 - March 20)</div>
+                                <div className='p-2'>
+                                    <div className='text-center'>Pisces</div>
+                                    <div className='text-center'>(February 19 - March 20)</div>
+                                </div>
                             </div> 
 
                         </div>

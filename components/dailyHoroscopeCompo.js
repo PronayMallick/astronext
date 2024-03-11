@@ -78,7 +78,7 @@ export default function DailyHoroscopeCompo() {
             
             <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
                <div id='outputDiv'>
-                    <div className="text-xl font-bold dark:text-slate-500">Daily Horoscope</div>
+                    {/* <div className="text-xl font-bold dark:text-slate-500">Daily Horoscope</div> */}
           
                     <div className="m-4">
                         
@@ -91,6 +91,15 @@ export default function DailyHoroscopeCompo() {
 
                         {data.sunsign && <div className="font-bold text-red-600 mt-2">Sunsign</div>}
                         <div className="text-sm text-slate-500">{data.sunsign}</div>
+                      
+                        {data.areas && data.areas.map(area => {
+                          return (
+                            <div key={area.title}>
+                                <div className="font-bold text-red-600 mt-2">{area.title}</div>
+                                <div className="text-sm text-slate-500">{area.desc}</div>
+                            </div>
+                          )
+                        })}
 
                         {/* <div className="font-bold text-red-600 mt-2">{data.areas[0].title}</div>
                         <div className="text-sm text-slate-500">{data.areas[0].desc}</div>
@@ -107,7 +116,7 @@ export default function DailyHoroscopeCompo() {
                         <div className="font-bold text-red-600 mt-2">{data.areas[4].title}</div>
                         <div className="text-sm text-slate-500">{data.areas[4].desc}</div> */}
 
-                        <div className="font-bold text-red-600 mt-2">Horoscope</div>
+                        {data.horoscope && <div className="font-bold text-red-600 mt-2">Horoscope</div>}
                         <div className="text-sm text-slate-500">{data.horoscope}</div>
                         
                     </div>
