@@ -104,9 +104,14 @@ const TarotThree =  () => {
             <div className='min-h-56 flex bg-slate-100 rounded-b-md'>
                 <div className='displayCardArea w-1/4 flex flex-col items-center py-5'>
                     {/* {cardHolder} */}
-                    <div className='tarotCard w-20 h-32 rounded-md m-1 bg-slate-500' >
-                        {data.name && <div className="text-xs text-wite-500 font-bold text-center pt-8">{data.name}</div>}
-                    </div>
+                    {data.map(card => {
+                       return (
+                        <div className='tarotCard w-24 h-32 rounded-md m-1 bg-slate-500' >
+                            {card.name && <div className="text-xs text-white font-bold text-center pt-8">{card.name}</div>}
+                        </div>
+                       )
+                    })}
+                    
                 </div>
                 <div className='displayCardInfo bg-slate-50 w-3/4  rounded-md'>
                     <div>
