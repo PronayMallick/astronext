@@ -100,8 +100,7 @@ export default function SignCompo() {
                       ))}
                     </select>
                    
-                    <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" onClick={mySignActionTwo}><SubmitButton/></button>
-                   
+                      <div><button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" onClick={mySignActionTwo}><SubmitButton/></button></div>
                     </form>
                 </div>
             </div>
