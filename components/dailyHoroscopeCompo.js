@@ -1,5 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { getHoroscope } from '@/app/actions';
+import { useFormState } from 'react-dom';
+import { SubmitButton } from '@/app/submit-button';
 
 export default function DailyHoroscopeCompo() {
   const [data, setData] = useState([]);
@@ -31,7 +34,7 @@ export default function DailyHoroscopeCompo() {
   ];
 
   const [day, setDay] = useState(days[0].value);
-  const [sunsign, setSunsign] = useState(options[0].value);
+  const [sunSign, setSunsign] = useState(options[0].value);
 
   const handleChangeA = event => {   
     setDay(event.target.value);
@@ -40,39 +43,17 @@ export default function DailyHoroscopeCompo() {
     setSunsign(event.target.value);
   };
 
-
-  function fdata() {
-
-    if(day === 0 && sunsign === 0) {
-    document.getElementById("outputDiv").style.display = "none"; 
-    } else {
-    document.getElementById("outputDiv").style.display = "block";
+  const [state, horoscopeAction] = useFormState(getHoroscope, null);
+  const horoscopeActionTwo = () => {
+    if(day == 0 && sunSign == 0) {
+      alert("Select time and your Sunsign")
+    }else if(day == 0) {
+      alert("Select time");
+    }else if(sunSign == 0) {
+      alert("Select your Sunsign");
     }
-
-    async function fetchData() {
-        const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/horoscope?day=${day}&sunsign=${sunsign}`, {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'c9dc604005msh3be6b07701922ebp1f95fbjsn76c549b14a4f',
-            'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
-        },
-    })
-      const datat = await response.json();
-      // console.log(datat);
-      setData(datat);
-     
-    }
-    
-    fetchData();
-}
+  }
   
-
-  useEffect(() => {
-
-   fdata();
-
-  }, []);
-
   return (
     <div className="flex w-full pb-10">
             
@@ -81,18 +62,19 @@ export default function DailyHoroscopeCompo() {
                     {/* <div className="text-xl font-bold dark:text-slate-500">Daily Horoscope</div> */}
           
                     <div className="m-4">
-                        
+                 
+                        {state && state.error && <div className="font-bold text-red-600 mt-2">{state.error}</div>}
 
-                        {data.date && <div className="font-bold text-red-600 mt-2">Date</div>}
-                        <div className="text-sm text-slate-500">{data.date}</div>
+                        {state && state.date && <div className="font-bold text-red-600 mt-2">Date</div>}
+                        <div className="text-sm text-slate-500">{state && state.date}</div>
 
-                        {data.week && <div className="font-bold text-red-600 mt-2">Week</div>}
-                        <div className="text-sm text-slate-500">{data.week}</div>
+                        {state && state.week && <div className="font-bold text-red-600 mt-2">Week</div>}
+                        <div className="text-sm text-slate-500">{state && state.week}</div>
 
-                        {data.sunsign && <div className="font-bold text-red-600 mt-2">Sunsign</div>}
-                        <div className="text-sm text-slate-500">{data.sunsign}</div>
+                        {state && state.sunsign && <div className="font-bold text-red-600 mt-2">Sunsign</div>}
+                        <div className="text-sm text-slate-500">{state && state.sunsign}</div>
                       
-                        {data.areas && data.areas.map(area => {
+                        {state && state.areas && state.areas.map(area => {
                           return (
                             <div key={area.title}>
                                 <div className="font-bold text-red-600 mt-2">{area.title}</div>
@@ -101,23 +83,8 @@ export default function DailyHoroscopeCompo() {
                           )
                         })}
 
-                        {/* <div className="font-bold text-red-600 mt-2">{data.areas[0].title}</div>
-                        <div className="text-sm text-slate-500">{data.areas[0].desc}</div>
-
-                        <div className="font-bold text-red-600 mt-2">{data.areas[1].title}</div>
-                        <div className="text-sm text-slate-500">{data.areas[1].desc}</div>
-
-                        <div className="font-bold text-red-600 mt-2">{data.areas[2].title}</div>
-                        <div className="text-sm text-slate-500">{data.areas[2].desc}</div>
-
-                        <div className="font-bold text-red-600 mt-2">{data.areas[3].title}</div>
-                        <div className="text-sm text-slate-500">{data.areas[3].desc}</div>
-
-                        <div className="font-bold text-red-600 mt-2">{data.areas[4].title}</div>
-                        <div className="text-sm text-slate-500">{data.areas[4].desc}</div> */}
-
-                        {data.horoscope && <div className="font-bold text-red-600 mt-2">Horoscope</div>}
-                        <div className="text-sm text-slate-500">{data.horoscope}</div>
+                        {state && state.horoscope && <div className="font-bold text-red-600 mt-2">Horoscope</div>}
+                        <div className="text-sm text-slate-500">{state && state.horoscope}</div>
                         
                     </div>
                </div>
@@ -125,29 +92,28 @@ export default function DailyHoroscopeCompo() {
 
             <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
                 <div className="flex flex-col px-4 pt-12 pb-10">
-
-                    <div className="text-xs font-bold">Enter day</div>
+                    <div className="text-xs font-bold">Enter time</div>
                   
-                    <select className="text-sm border rounded-md w-28 my-1 p-1" value={day} onChange={handleChangeA}>
-                      {days.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.text}
-                        </option>
-                      ))}
-                    </select>
+                    <form action={horoscopeAction}>
+                      <select className="text-sm border rounded-md w-28 my-1 p-1" name='time' value={day} onChange={handleChangeA}>
+                        {days.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.text}
+                          </option>
+                        ))}
+                      </select>
 
-
-                    <div className="text-xs font-bold my-1">Enter Sunsign</div>
-
-                    <select className="text-sm border rounded-md w-28 p-1" value={sunsign} onChange={handleChangeB}>
-                      {options.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.text}
-                        </option>
-                      ))}
-                    </select>
-                    <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={fdata}>Submit</button>
-                   
+                      <div className="text-xs font-bold my-1">Enter Sunsign</div>
+                      <select className="text-sm border rounded-md w-28 p-1" name='sign' value={sunSign} onChange={handleChangeB}>
+                        {options.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.text}
+                          </option>
+                        ))}
+                      </select><br/>
+                      <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={horoscopeActionTwo}> <SubmitButton /></button>
+                     
+                    </form>
                 </div>
             </div>
             

@@ -1,10 +1,12 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { getMySign } from '@/app/actions';
+import { useFormState } from 'react-dom';
+import { SubmitButton } from '@/app/submit-button';
 
 export default function SignCompo() {
 
   const [data, setData] = useState([]);
-  const [blankValue, setBlankValue] = useState();
 
   const options = [
     {value: 0 , text: 'Select any'},
@@ -28,80 +30,59 @@ export default function SignCompo() {
     setSignOne(event.target.value);
   };
 
-  function fdata() {
-    console.log('test blank');
-    console.log(signOne);
-   
-    if(signOne === 0) {
-      
-      document.getElementById("outputDiv").style.display = "none"; 
-    } else {
-      document.getElementById("outputDiv").style.display = "block";
-    }
-
-    async function fetchData() {
-        
-      const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/sign?s=${signOne}`, {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'c9dc604005msh3be6b07701922ebp1f95fbjsn76c549b14a4f',
-            'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
-        },
-      })
-      const datat = await response.json();
-      setData(datat);
-      // console.log(data);
-
-    }
+  const [state, mySignAction] = useFormState(getMySign, null);
+ 
+  function mySignActionTwo() {
+    if(signOne == 0) {
+      alert('Select your sign')
+    } 
+     
     
-    fetchData();
+    
 }
   
-
-  useEffect(() => {
-   fdata();
-  }, []);
-
   return (
     <div className="flex w-full pb-10">
-            
+
       <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
         <div id='outputDiv'>
           <div className="m-4">
-            <div className="text-xl font-bold dark:text-slate-500">{signOne}</div>  
+            <div className="text-xl font-bold dark:text-slate-500">{signOne>0 && signOne}</div>  
 
-            <div className="font-bold text-red-600 mt-2">About</div>
-            <div className="text-sm text-slate-500">{data.about}</div>
-            <div className="font-bold text-red-600 mt-2	">Career</div>
-            <div className="text-sm text-slate-500">{data.career}</div>
-            <div className="font-bold text-red-600	">Compatibility:</div>
-            <div className="text-sm text-slate-500">{data.compatibility}</div>
-            <div className="font-bold text-red-600 mt-2">Date Range</div>
-            <div className="text-sm text-slate-500">{data.date_range}</div>
-            <div className="font-bold text-red-600 mt-2">Element</div>
-            <div className="text-sm text-slate-500">{data.element}</div>
-            <div className="font-bold text-red-600 mt-2">Health</div>
-            <div className="text-sm text-slate-500">{data.health}</div>
-            <div className="font-bold text-red-600 mt-2">Love</div>
-            <div className="text-sm text-slate-500">{data.love}</div>
-            <div className="font-bold text-red-600 mt-2">Man</div>
-            <div className="text-sm text-slate-500">{data.man}</div>
-            <div className="font-bold text-red-600 mt-2">Name</div>
-            <div className="text-sm text-slate-500">{data.name}</div>
-            <div className="font-bold text-red-600 mt-2">Nature</div>
-            <div className="text-sm text-slate-500">{data.nature}</div>
-            <div className="font-bold text-red-600 mt-2">Relationship</div>
-            <div className="text-sm text-slate-500">{data.relationship}</div>
-            <div className="font-bold text-red-600 mt-2">Ruling Planet</div>
-            <div className="text-sm text-slate-500">{data.rulinh_planet}</div>
-            <div className="font-bold text-red-600 mt-2">Strengths</div>
-            <div className="text-sm text-slate-500">{data.strengths}</div>
-            <div className="font-bold text-red-600 mt-2">Symbol</div>
-            <div className="text-sm text-slate-500">{data.synbol}</div>
-            <div className="font-bold text-red-600 mt-2">Weaknesses</div>
-            <div className="text-sm text-slate-500">{data.weaknesses}</div>
-            <div className="font-bold text-red-600 mt-2">Woman</div>
-            <div className="text-sm text-slate-500">{data.woman}</div>      
+            <div className="font-bold text-red-600 mt-2">{state && state.error}</div>
+
+            <div className="font-bold text-red-600 mt-2">{state && state.about && "About"}</div>
+            <div className="text-sm text-slate-500">{state && state.about}</div>
+            <div className="font-bold text-red-600 mt-2">{state &&state.career && "Career"}</div>
+            <div className="text-sm text-slate-500">{state && state.career}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.compatibility && "Compatibility"}</div>
+            <div className="text-sm text-slate-500">{state && state.compatibility}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.date_range && "Date Range"}</div>
+            <div className="text-sm text-slate-500">{state && state.date_range}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.element && "Element"}</div>
+            <div className="text-sm text-slate-500">{state && state.element}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.health && "Health"}</div>
+            <div className="text-sm text-slate-500">{state && state.health}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.love && "Love"}</div>
+            <div className="text-sm text-slate-500">{state && state.love}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.man && "Man"}</div>
+            <div className="text-sm text-slate-500">{state && state.man}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.name && "Name"}</div>
+            <div className="text-sm text-slate-500">{state && state.name}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.nature && "Nature"}</div>
+            <div className="text-sm text-slate-500">{state && state.nature}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.relationship && "Relationship"}</div>
+            <div className="text-sm text-slate-500">{state && state.relationship}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.rulinh_planet && "Ruling Planet"}</div>
+            <div className="text-sm text-slate-500">{state && state.rulinh_planet}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.strengths && "Strengths"}</div>
+            <div className="text-sm text-slate-500">{state && state.strengths}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.synbol && "Symbol"}</div>
+            <div className="text-sm text-slate-500">{state && state.synbol}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.weaknesses && "Weaknesses"}</div>
+            <div className="text-sm text-slate-500">{state && state.weaknesses}</div>
+            <div className="font-bold text-red-600 mt-2">{state && state.woman && "Woman"}</div>
+            <div className="text-sm text-slate-500">{state && state.woman}</div>      
           </div>
         </div>
       </div>
@@ -110,7 +91,8 @@ export default function SignCompo() {
 
                     <div className="text-xs font-bold">Enter your Sign</div>
 
-                    <select className=" border rounded-md w-28 mt-2 p-1" value={signOne} onChange={handleChange}>
+                    <form action={mySignAction}>
+                    <select className=" border rounded-md w-28 mt-2 p-1" name='sign' value={signOne} onChange={handleChange}>
                       {options.map(option => (
                         <option key={option.value} value={option.value}>
                           {option.text}
@@ -118,10 +100,9 @@ export default function SignCompo() {
                       ))}
                     </select>
                    
+                    <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" onClick={mySignActionTwo}><SubmitButton/></button>
                    
-                    <div>{blankValue}</div>
-                    <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" onClick={fdata}>Submit</button>
-                   
+                    </form>
                 </div>
             </div>
             

@@ -4,10 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import IntroContent from "@/components/ui/introContent";
 import ServicesCompOne from "@/components/ui/servicesCompOne";
-import Test from "@/components/test";
-import Test2 from "@/components/test2";
-import Test3 from "@/components/test3";
-import Test4 from "@/components/test4";
+
 
 
 
@@ -31,25 +28,16 @@ export default function RootLayout({ children }) {
           <div className="introContent">
             <IntroContent/>
           </div>
-          {/* <div><Test3/></div> */}
-
+        
           <div className="serviceCompOne">
             <ServicesCompOne/>
           </div>
           
-          {/* <div><DailyPhrase/></div> */}
-
-
-          <div>{children}</div>
-          {/* <div className="flex  m-4 ">
-            <div className="w-3/4 m-1 flex	">
-                {children}
-            </div>
-            <div className="w-1/4 bg-amber-300 p-4 m-1 rounded-md text-sm">
-             <Sidebar/>
-            </div>
-          </div> */}
-
+         
+            {children}
+       
+          <div></div>
+         
         </div>
       </body>
     </html>

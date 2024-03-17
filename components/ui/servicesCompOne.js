@@ -18,11 +18,7 @@ export default function ServicesCompOne() {
 
     const showCompo = (comp) => {
         
-        if(comp === "Numerology") { setShowService(
-            <Suspense fallback={<Loading/>}>
-                <NumerologyCompo/>
-            </Suspense>
-        ); setServiceTitle(comp) } 
+        if(comp === "Numerology") { setShowService(<NumerologyCompo/>); setServiceTitle(comp) } 
         else 
         if(comp === "Compatibility") { setShowService(<CompatabilityCompo/>); setServiceTitle(comp) }
         else 
@@ -142,6 +138,7 @@ export default function ServicesCompOne() {
         <div className="service  bg-slate-200 px-4 pb-5 pt-12">
             <div className='pb-4 text-2xl font-bold dark:text-slate-500'>{serviceTitle}</div>
             <div>
+                
                 {showService}
                
                 {/* <CompatabilityCompo/> */}

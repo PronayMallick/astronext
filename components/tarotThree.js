@@ -1,75 +1,57 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
+import { getThreeTarotCard } from '@/app/actions';
+import { useFormState } from 'react-dom';
+import { SubmitButton } from '@/app/submit-button';
 
 
 const TarotThree =  () => {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
 
     const [cardLeft, setCardLeft] = useState(3);
     const [cards, setCards] = useState(0);
     const [cardMsg, setCardMsg] = useState('See your reading !');
 
-
-    const fdata = () => {
-        console.log('fdata function');
-        const getData = async () => {
-            const res = await fetch("https://horoscope-astrology.p.rapidapi.com/threetarotcards", {
-                method: 'GET',
-                headers: {
-                    'X-RapidAPI-Key': 'c9dc604005msh3be6b07701922ebp1f95fbjsn76c549b14a4f',
-                    'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
-                },
-            })    
-            // if(!res.ok) {
-            //     throw new Error("Something went wrong")
-            // }
-
-            const response = await res.json();
-            const response2 = response.res;
-            // console.log(response.res);
-            // console.log(response);
-            setData(response2);  
-        }
-        getData();
+    const selectCard= (la) => {
+    if(cards < 3) {
+        let element = document.getElementById(la);
+        element.classList.add("bottom-2");
+        element.classList.add("grayscale");
+        element.classList.add("shadow-lg");
+        element.classList.add("shadow-white");
+        setCards(cards+1);
+    }
+    setCardLeft(cardLeft-1);     
     }
     
-    useEffect(() => {
-        // fdata();
-       }, []);
-
-      
-       const selectCard= (la) => {
-        if(cards < 3) {
-            let element = document.getElementById(la);
-            element.classList.add("bottom-2");
-            element.classList.add("grayscale");
-            element.classList.add("shadow-lg");
-            element.classList.add("shadow-white");
-            setCards(cards+1);
-        }
-        setCardLeft(cardLeft-1);     
-        console.log(cards);
-       }
-     
-       const displayCard = () => {
-            if(cards === 3) {
-                fdata();
-                let showButton = document.getElementById('dispCard');
-                showButton.classList.add("invisible");
-            }
-       }
-
-       const tarotImg = <Image src='/images/icons/tarot.png' width={50} height={50} style={{ width:'100%', height:'auto'}} alt="Tarot card"/>
-    // console.log("horoscopeData 3");
-    // console.log(data)
+    const tarotImg = <Image src='/images/icons/tarot.png' width={50} height={50} style={{ width:'100%', height:'auto'}} alt="Tarot card"/>
+  
+    const [state, threeTarotCardAction] = useFormState(getThreeTarotCard, null)
    
-    // const daata = data
+    const displayCard = () => {
+        if(cards === 0) {
+            alert("Please select 3 cards");
+        } else
+        if(cards === 1) {
+            alert("Please select 2 more cards");
+        } else
+        if(cards === 2) {
+            alert("Please select 1 more card");
+        } else
+        if(cards === 3) {
+            threeTarotCardAction();
+            // let showButton = document.getElementById('dispCard');
+            // showButton.classList.add("invisible");
+        }
+   }
+   let i = 1;
+
     return (
         <div className="flex border rounded-md flex-col w-full bg-slate-50 mt-2 ">
 
-            <div className='flex flex-col h-56 relative items-center bg-slate-200'>
-            <div className=' w-56 h-20 flex relative'>
+            <div className='flex flex-col h-60 relative items-center bg-slate-200'>
+                <div className=' w-56 h-20 flex relative'>
                     <button className='absolute left-0 tarotCard w-14 h-20 rounded-md' id='card-1' onClick={() => selectCard('card-1')}>{tarotImg}</button>
                     <button className='absolute left-4 tarotCard w-14 h-20 rounded-md' id='card-2' onClick={() => selectCard('card-2')}>{tarotImg}</button>
                     <button className='absolute left-8 tarotCard w-14 h-20 rounded-md' id='card-3' onClick={() => selectCard('card-3')}>{tarotImg}</button>
@@ -97,17 +79,21 @@ const TarotThree =  () => {
                 </div>
                 <div className='relative'>
                     {/* {cardSelect} */}
-                    <button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500' onClick={() => displayCard() }> {(cardLeft < 1) ? "Show my reading" : cards ? "Choose "+ cardLeft +" more cards" : "select 3 cards"}</button>
+                    <form action={displayCard}>
+                        <div className='pb-2'>{(cardLeft < 1) ? "Click on Submit" : cards ? "Choose "+ cardLeft +" more cards" : "select 3 cards"}</div>
+                        <div className='flex justify-center'><button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500'><SubmitButton/></button></div>
+                    </form>
                 </div>           
             </div>
 
             <div className='min-h-56 flex bg-slate-100 rounded-b-md'>
                 <div className='displayCardArea w-1/4 flex flex-col items-center py-5'>
                     {/* {cardHolder} */}
-                    {data.map(card => {
+                    {state && !state.error && state.map(card => {
+                         i++ ;
                        return (
-                        <div className='tarotCard w-24 h-32 rounded-md m-1 bg-slate-500' >
-                            {card.name && <div className="text-xs text-white font-bold text-center pt-8">{card.name}</div>}
+                        <div className='tarotCard w-24 h-32 rounded-md m-1 bg-slate-200'  key={i}>
+                            {card.name && <div className="text-xs text-slate-400 font-bold text-center pt-8">{card.name}</div>}
                         </div>
                        )
                     })}
@@ -116,9 +102,11 @@ const TarotThree =  () => {
                 <div className='displayCardInfo bg-slate-50 w-3/4  rounded-md'>
                     <div>
                         <div className='min-h-60 py-4 px-1'>
-                            {data.map( ( dat) => {
+                            {state && state.error && <div className='font-bold mt-1 text-red-600'>{state.error}</div>}
+                            {state && !state.error && state.map( ( dat) => {
+                                i++ ;
                                 return (
-                                <div className="" key={dat.name}>
+                                <div className="" key={i}>
                                     <div id="index" className="font-bold mt-1 text-red-600" >{dat.name}</div>
                                     <div id="index" className="text-sm text-slate-500">{dat.desc}</div>
                                     <div id="index" className="text-sm text-slate-500">{dat.rdesc}</div>
@@ -131,20 +119,6 @@ const TarotThree =  () => {
                 </div>
             </div>
 
-            {/* <button className='rounded-md bg-slate-300 p-1 w-40' onClick={fdata}>Get 3 Tarot card</button> */}
-         
-                {/* <div className='min-h-60 py-4 px-1'>
-                    {data.map( ( dat) => {
-                        return (
-                        <div className="" key={dat.name}>
-                            <div id="index" className="font-bold mt-1 text-red-600" >{dat.name}</div>
-                            <div id="index" className="text-sm text-slate-500">{dat.desc}</div>
-                            <div id="index" className="text-sm text-slate-500">{dat.rdesc}</div>
-                            <div id="index" className="text-sm text-slate-500">{dat.sequence}</div>
-                        </div>
-                        )
-                    })}                    
-                </div> */}
         </div>
     )
 }

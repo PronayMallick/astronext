@@ -1,83 +1,49 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
+import { getOneTarotCard } from '@/app/actions';
+import { useFormState } from 'react-dom';
+import { SubmitButton } from '@/app/submit-button';
+
 
 const TarotOne =  () => {
-    const [data, setData] = useState([]);
-    const [cardHolder, setCardHolder] = useState('Your Card');
-    const [cardSelect, setCardSelect] = useState('');
-    const [cardColor, setCardColor] = useState('');
+  
     const [cards, setCards] = useState(0);
     const [cardLeft, setCardLeft] = useState(0);
 
-    const fdata = () => {
-        console.log('fdata function');
-        const getData = async () => {
-            const res = await fetch("https://horoscope-astrology.p.rapidapi.com/tarotcard", {
-                method: 'GET',
-                headers: {
-                    'X-RapidAPI-Key': 'c9dc604005msh3be6b07701922ebp1f95fbjsn76c549b14a4f',
-                    'X-RapidAPI-Host': 'horoscope-astrology.p.rapidapi.com'
-                },
-            })    
-            // if(!res.ok) {
-            //     throw new Error("Something went wrong")
-            // }
-
-            const response = await res.json();
-            const response2 = response.res[0];
-            // console.log(response2);
-            // console.log(response);
-            setData(response2);  
-        }
-        getData();
+    const selectCard= (la) => {
+    if(cards < 1) {
+        let element = document.getElementById(la);
+        element.classList.add("bottom-2");
+        element.classList.add("grayscale");
+        element.classList.add("shadow-lg");
+        element.classList.add("shadow-white");
+        
+        setCards(cards+1);
     }
-    
-    useEffect(() => {
-        // fdata();
-       }, []);
+    setCardLeft(cardLeft-1);     
+    console.log(cards);
+    }
+     
+    const tarotImg = <Image src='/images/icons/tarot.png' width={50} height={50} style={{ width:'100%', height:'auto'}} alt="Tarot card"/>
+  
+    const [state, oneTarotCardAction] = useFormState(getOneTarotCard, null)
+    // console.log(state);
 
-       const selectCard= (la) => {
-        if(cards < 1) {
-            let element = document.getElementById(la);
-            element.classList.add("bottom-2");
-            element.classList.add("grayscale");
-            element.classList.add("shadow-lg");
-            element.classList.add("shadow-white");
-          
-            setCards(cards+1);
+    const displayCard = () => {
+        if(cards === 0) {
+            alert('Please select elect 1 card');
+        } else if(cards === 1) {
+            oneTarotCardAction();
+            // let showButton = document.getElementById('dispCard');
+            // showButton.classList.add("invisible");
         }
-        setCardLeft(cardLeft-1);     
-        console.log(cards);
-       }
-     
-       const displayCard = () => {
-            if(cards === 1) {
-                fdata();
-                let showButton = document.getElementById('dispCard');
-                showButton.classList.add("invisible");
-            }
-       }
-
-       const tarotImg = <Image src='/images/icons/tarot.png' width={50} height={50} style={{ width:'100%', height:'auto'}} alt="Tarot card"/>
-    // console.log("horoscopeData 3");
-    // console.log(data)
-    // const daata = data
-    //    const selectCard= (la) => {
-    //     setCardSelect(<button className={'py-2 px-3 rounded-lg text-sm  ' + la} onClick={() => displayCard(la)}>Select</button>)
-    //    }
-     
-      
-    //    const displayCard = (col) => {
-    //     fdata();
-    //     setCardColor(col);
-    //     console.log('clicked' + ' ' + col)
-    //    }
+   }
 
     return (
         <div className="flex border rounded-md flex-col w-full bg-slate-50 mt-2">
 
-            <div className='flex flex-col h-56 relative items-center bg-slate-200'>
+            <div className='flex flex-col h-60 relative items-center bg-slate-200'>
                 <div className=' w-56 h-20 flex relative'>
                     <button className='absolute left-0 tarotCard w-14 h-20 rounded-md' id='card-1' onClick={() => selectCard('card-1')}>{tarotImg}</button>
                     <button className='absolute left-4 tarotCard w-14 h-20 rounded-md' id='card-2' onClick={() => selectCard('card-2')}>{tarotImg}</button>
@@ -104,40 +70,37 @@ const TarotOne =  () => {
                     <button className='absolute left-36 tarotCard w-14 h-20 rounded-md' id='card-21' onClick={() => selectCard('card-21')}>{tarotImg}</button>
                     <button className='absolute left-40 tarotCard w-14 h-20 rounded-md' id='card-22' onClick={() => selectCard('card-22')}>{tarotImg}</button>          
                 </div>
-                <div className='relative'>
+                <div className='relative pb-4'>
                     {/* {cardSelect} */}
-                    <button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500' onClick={() => displayCard() }> {(cardLeft < 0) ? "Show my reading" : cards ? "Choose "+ cardLeft +" more cards" : "Select 1 cards"}</button>
+                    <form action={displayCard}>
+                        <div className='pb-2'>{(cardLeft < 0) ? "Click on Submit" : cards ? "Choose "+ cardLeft +" more cards" : "Select 1 cards"}</div>
+                        <div className='flex justify-center'><button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500'> <SubmitButton/></button></div>
+                    </form>
                 </div>           
             </div>
 
             <div className='min-h-56 flex bg-slate-100 rounded-b-md'>
                 <div className='displayCardArea w-1/4 flex flex-col items-center py-5'>
                     {/* {cardHolder} */}
-                    <div className='tarotCard w-24 h-32 rounded-md m-1 bg-slate-500' >
-                            {data.name && <div className="text-xs text-white font-bold text-center pt-8">{data.name}</div>}
+                    <div className='tarotCard w-24 h-32 rounded-md m-1 bg-slate-200' >
+                            {state && <div className="text-xs text-slate-400 font-bold text-center pt-8">{state.name}</div>  }
                         </div>
                
                 </div>
                 <div className='displayCardInfo bg-slate-50 w-3/4  rounded-md'>
                     <div>
                         <div className='min-h-60 py-4 px-1'>
-                        {data.name && <div id="index" className="font-bold mt-1 text-red-600">Name of your Card: <span className="text-sm text-slate-500 font-bold">{data.name}</span></div>}
-                        {data.desc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{data.desc}</span></div>}
-                        {data.rdesc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{data.rdesc}</span></div>}
-                        <div id="index" className="text-sm text-slate-500">{data.sequence}</div> 
+                        {state && state.error && <div className ="font-bold mt-1 text-red-600">{state.error}</div>}
+                        {state && state.name && <div id="index" className="font-bold mt-1 text-red-600">Name of your Card: <span className="text-sm text-slate-500 font-bold">{state.name}</span></div>}
+                        {state && state.desc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{state.desc}</span></div>}
+                        {state && state.rdesc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{state.rdesc}</span></div>}
+                        {/* <div id="index" className="text-sm text-slate-500">{state.sequence}</div>  */}
                         </div> 
                     </div>
                 </div>
             </div>
 
 
-            {/* <button className='rounded-md bg-slate-300 p-1 w-40' onClick={fdata}>Get 1 Tarot card</button>
-                <div className='h-60 py-4'>
-                    {data.name && <div id="index" className="font-bold mt-1 text-red-600">Name of your Card: <span className="text-sm text-slate-500 font-bold">{data.name}</span></div>}
-                    {data.desc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{data.desc}</span></div>}
-                    {data.rdesc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{data.rdesc}</span></div>}
-                    <div id="index" className="text-sm text-slate-500">{data.sequence}</div> 
-                </div> */}
         </div>
     )
 }
