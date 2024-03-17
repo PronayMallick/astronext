@@ -73,7 +73,7 @@ export default function NumerologyCompo() {
                   
                     <form action={generateSingleDigit}>
                       <input type='date' asp-format="{0:yyyy-MM-dd}"   onChange={ handleChange} />
-                      <button className='w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1' ><SubmitButton/></button>
+                      <div><button className='w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1' ><SubmitButton/></button></div>
                     </form>
                     {/* {numFinal>0 && <div className="text-xs font-bold py-2 " >Your Number is: {numFinal} <br/>
                     <button className="w-28 rounded-md bg-slate-400 mt-2 hover:bg-slate-500 text-white text-sm p-1" onClick={fdata}>See your Numerology</button>
