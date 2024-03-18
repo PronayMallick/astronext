@@ -38,23 +38,39 @@ export default function CompatabilityCompo() {
   ];
 
   
-
+  const [dataFlag, setDataFlag] = useState();
   const [signOne, setSignOne] = useState(optionsA[0].value);
   const [signTwo, setSignTwo] = useState(optionsB[0].value);
-  const [state, CompatabilityAction] = useFormState(getCompatibility, null);
+  const [state, CompatabilityActionTwo] = useFormState(getCompatibility, null);
 
-  const CompatabilityActionTwo = () => {
+  const fData = {
+    'signOne' : signOne,
+    'signTwo' : signTwo
+  }
+
+  const CompatabilityAction = () => {
+    CompatabilityActionTwo(fData);
+    setDataFlag('');
+  }
+
+  const DisplayLoading = () => {
     if(signOne == "Not selected") {
       alert("Select your sign");
     }else if(signTwo == "Not selected") {
       alert("Select your Partner's Sign");
     }
+    setDataFlag(
+      <div className='flex justify-center h-full  w-full bg-slate-50 absolute right-0 top-0'>
+        <div className='h-5 w-5 m-1 animate-spin rounded-full border-b-2 border-slate-500 mt-20'></div>
+      </div>
+    ); 
   }
   
   return (
     <div className="flex w-full pb-10">
             
-            <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
+            <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5 relative">
+              {dataFlag}
               <div id='outputDiv'>
                 {state && state.error && <div className="font-bold text-red-600 mt-2">{state.error}</div>}                
                 {state && !state.error && state.map( ( dat) => { 
@@ -99,9 +115,7 @@ export default function CompatabilityCompo() {
                       </select>
                       <span className='text-xs'>{signTwo}</span>
                     </div>
-
-                    <button type='submit' className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={CompatabilityActionTwo}><SubmitButton/></button>
-                  
+                    <button type='submit' className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={DisplayLoading}><SubmitButton/></button>                 
                   </form> 
                 </div>
             </div>

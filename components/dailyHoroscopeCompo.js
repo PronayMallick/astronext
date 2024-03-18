@@ -35,6 +35,8 @@ export default function DailyHoroscopeCompo() {
 
   const [day, setDay] = useState(days[0].value);
   const [sunSign, setSunsign] = useState(options[0].value);
+  const [dataFlag, setDataFlag] = useState();
+
 
   const handleChangeA = event => {   
     setDay(event.target.value);
@@ -43,24 +45,39 @@ export default function DailyHoroscopeCompo() {
     setSunsign(event.target.value);
   };
 
-  const [state, horoscopeAction] = useFormState(getHoroscope, null);
-  const horoscopeActionTwo = () => {
+  const [state, horoscopeActionTwo] = useFormState(getHoroscope, null);
+  const fData = {
+    'time' : day,
+    'sign' : sunSign
+  }
+
+  const horoscopeAction = () => {
+    horoscopeActionTwo(fData);
+    setDataFlag('');
+  }
+
+  const DisplayLoading = () => {
     if(day == 0 && sunSign == 0) {
       alert("Select time and your Sunsign")
     }else if(day == 0) {
       alert("Select time");
     }else if(sunSign == 0) {
       alert("Select your Sunsign");
+    }else {
+    setDataFlag(
+      <div className='flex justify-center h-full  w-full bg-slate-50 absolute right-0 top-0'>
+        <div className='h-5 w-5 m-1 animate-spin rounded-full border-b-2 border-slate-500 mt-20'></div>
+      </div>
+    ); 
     }
   }
   
   return (
     <div className="flex w-full pb-10">
             
-            <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
-               <div id='outputDiv'>
-                    {/* <div className="text-xl font-bold dark:text-slate-500">Daily Horoscope</div> */}
-          
+            <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5 relative">
+              {dataFlag}
+               <div id='outputDiv'>          
                     <div className="m-4">
                  
                         {state && state.error && <div className="font-bold text-red-600 mt-2">{state.error}</div>}
@@ -95,7 +112,7 @@ export default function DailyHoroscopeCompo() {
                     <div className="text-xs font-bold">Enter time</div>
                   
                     <form action={horoscopeAction}>
-                      <select className="text-sm border rounded-md w-28 my-1 p-1" name='time' value={day} onChange={handleChangeA}>
+                      <select className="text-sm border rounded-md w-26 my-1 p-1" name='time' value={day} onChange={handleChangeA}>
                         {days.map(option => (
                           <option key={option.value} value={option.value}>
                             {option.text}
@@ -104,14 +121,14 @@ export default function DailyHoroscopeCompo() {
                       </select>
 
                       <div className="text-xs font-bold my-1">Enter Sunsign</div>
-                      <select className="text-sm border rounded-md w-28 p-1" name='sign' value={sunSign} onChange={handleChangeB}>
+                      <select className="text-sm border rounded-md w-26 p-1" name='sign' value={sunSign} onChange={handleChangeB}>
                         {options.map(option => (
                           <option key={option.value} value={option.value}>
                             {option.text}
                           </option>
                         ))}
                       </select><br/>
-                      <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={horoscopeActionTwo}> <SubmitButton /></button>
+                      <button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-4 text-white text-sm p-1" onClick={DisplayLoading}> <SubmitButton /></button>
                      
                     </form>
                 </div>

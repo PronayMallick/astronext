@@ -10,6 +10,8 @@ const TarotOne =  () => {
   
     const [cards, setCards] = useState(0);
     const [cardLeft, setCardLeft] = useState(0);
+    const [dataFlag, setDataFlag] = useState();
+    const tarotImg = <Image src='/images/icons/tarot.png' width={50} height={50} style={{ width:'100%', height:'auto'}} alt="Tarot card"/>
 
     const selectCard= (la) => {
     if(cards < 1) {
@@ -25,7 +27,6 @@ const TarotOne =  () => {
     console.log(cards);
     }
      
-    const tarotImg = <Image src='/images/icons/tarot.png' width={50} height={50} style={{ width:'100%', height:'auto'}} alt="Tarot card"/>
   
     const [state, oneTarotCardAction] = useFormState(getOneTarotCard, null)
     // console.log(state);
@@ -35,10 +36,21 @@ const TarotOne =  () => {
             alert('Please select elect 1 card');
         } else if(cards === 1) {
             oneTarotCardAction();
+            setDataFlag('');
             // let showButton = document.getElementById('dispCard');
             // showButton.classList.add("invisible");
         }
    }
+
+   const DisplayLoading = () => {
+    if(cards != 0) {
+      setDataFlag(
+        <div className='flex justify-center items-center h-full  w-full bg-slate-50 absolute right-0 top-0'>
+          <div className='h-5 w-5 m-1 animate-spin rounded-full border-b-2 border-slate-500'></div>
+        </div>
+      ); 
+    } 
+  }
 
     return (
         <div className="flex border rounded-md flex-col w-full bg-slate-50 mt-2">
@@ -74,12 +86,13 @@ const TarotOne =  () => {
                     {/* {cardSelect} */}
                     <form action={displayCard}>
                         <div className='pb-2'>{(cardLeft < 0) ? "Click on Submit" : cards ? "Choose "+ cardLeft +" more cards" : "Select 1 cards"}</div>
-                        <div className='flex justify-center'><button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500'> <SubmitButton/></button></div>
+                        <div className='flex justify-center' onClick={DisplayLoading}><button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500'> <SubmitButton/></button></div>
                     </form>
                 </div>           
             </div>
 
-            <div className='min-h-56 flex bg-slate-100 rounded-b-md'>
+            <div className='min-h-56 flex bg-slate-100 rounded-b-md relative'>
+                {dataFlag}
                 <div className='displayCardArea w-1/4 flex flex-col items-center py-5'>
                     {/* {cardHolder} */}
                     <div className='tarotCard w-24 h-32 rounded-md m-1 bg-slate-200' >
@@ -88,13 +101,14 @@ const TarotOne =  () => {
                
                 </div>
                 <div className='displayCardInfo bg-slate-50 w-3/4  rounded-md'>
+                    
                     <div>
                         <div className='min-h-60 py-4 px-1'>
-                        {state && state.error && <div className ="font-bold mt-1 text-red-600">{state.error}</div>}
-                        {state && state.name && <div id="index" className="font-bold mt-1 text-red-600">Name of your Card: <span className="text-sm text-slate-500 font-bold">{state.name}</span></div>}
-                        {state && state.desc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{state.desc}</span></div>}
-                        {state && state.rdesc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{state.rdesc}</span></div>}
-                        {/* <div id="index" className="text-sm text-slate-500">{state.sequence}</div>  */}
+                            {state && state.error && <div className ="font-bold mt-1 text-red-600">{state.error}</div>}
+                            {state && state.name && <div id="index" className="font-bold mt-1 text-red-600">Name of your Card: <span className="text-sm text-slate-500 font-bold">{state.name}</span></div>}
+                            {state && state.desc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{state.desc}</span></div>}
+                            {state && state.rdesc && <div><span className="text-sm text-slate-500 font-bold">Faith: </span ><span className="text-sm text-slate-500 pt-3">{state.rdesc}</span></div>}
+                            {/* <div id="index" className="text-sm text-slate-500">{state.sequence}</div>  */}
                         </div> 
                     </div>
                 </div>

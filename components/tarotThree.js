@@ -7,11 +7,12 @@ import { SubmitButton } from '@/app/submit-button';
 
 
 const TarotThree =  () => {
-    // const [data, setData] = useState([]);
 
     const [cardLeft, setCardLeft] = useState(3);
     const [cards, setCards] = useState(0);
     const [cardMsg, setCardMsg] = useState('See your reading !');
+    const [dataFlag, setDataFlag] = useState();
+
 
     const selectCard= (la) => {
     if(cards < 3) {
@@ -41,11 +42,20 @@ const TarotThree =  () => {
         } else
         if(cards === 3) {
             threeTarotCardAction();
-            // let showButton = document.getElementById('dispCard');
-            // showButton.classList.add("invisible");
+            setDataFlag("");
         }
    }
    let i = 1;
+
+    const DisplayLoading = () => {
+        if(cards == 3) {
+        setDataFlag(
+            <div className='flex justify-center items-center h-full  w-full bg-slate-50 absolute right-0 top-0'>
+            <div className='h-5 w-5 m-1 animate-spin rounded-full border-b-2 border-slate-500'></div>
+            </div>
+        ); 
+        } 
+    }
 
     return (
         <div className="flex border rounded-md flex-col w-full bg-slate-50 mt-2 ">
@@ -78,17 +88,16 @@ const TarotThree =  () => {
                     <button className='absolute left-40 tarotCard w-14 h-20 rounded-md' id='card-22' onClick={() => selectCard('card-22')}>{tarotImg}</button>          
                 </div>
                 <div className='relative'>
-                    {/* {cardSelect} */}
                     <form action={displayCard}>
                         <div className='pb-2'>{(cardLeft < 1) ? "Click on Submit" : cards ? "Choose "+ cardLeft +" more cards" : "select 3 cards"}</div>
-                        <div className='flex justify-center'><button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500'><SubmitButton/></button></div>
+                        <div className='flex justify-center' onClick={DisplayLoading}><button id='dispCard' className=' py-2 px-3 rounded-lg text-sm bg-orange-500'><SubmitButton/></button></div>
                     </form>
                 </div>           
             </div>
 
-            <div className='min-h-56 flex bg-slate-100 rounded-b-md'>
+            <div className='min-h-56 flex bg-slate-100 rounded-b-md relative'>
+                {dataFlag}
                 <div className='displayCardArea w-1/4 flex flex-col items-center py-5'>
-                    {/* {cardHolder} */}
                     {state && !state.error && state.map(card => {
                          i++ ;
                        return (
@@ -110,7 +119,6 @@ const TarotThree =  () => {
                                     <div id="index" className="font-bold mt-1 text-red-600" >{dat.name}</div>
                                     <div id="index" className="text-sm text-slate-500">{dat.desc}</div>
                                     <div id="index" className="text-sm text-slate-500">{dat.rdesc}</div>
-                                    {/* <div id="index" className="text-sm text-slate-500">{dat.sequence}</div> */}
                                 </div>
                                 )
                             })}                    

@@ -7,6 +7,7 @@ import { SubmitButton } from '@/app/submit-button';
 export default function SignCompo() {
 
   const [data, setData] = useState([]);
+  const [dataFlag, setDataFlag] = useState();
 
   const options = [
     {value: 0 , text: 'Select any'},
@@ -30,27 +31,35 @@ export default function SignCompo() {
     setSignOne(event.target.value);
   };
 
-  const [state, mySignAction] = useFormState(getMySign, null);
- 
-  function mySignActionTwo() {
+  const [state, mySignActionTwo] = useFormState(getMySign, null);
+
+  const mySignAction = () => {
+    mySignActionTwo(signOne);
+    setDataFlag('')
+  }
+
+  function DisplayLoading() {
     if(signOne == 0) {
-      alert('Select your sign')
+      alert('Select your sign')  
+    } else {
+      setDataFlag(
+        <div className='flex justify-center h-full  w-full bg-slate-50 absolute right-0 top-0 '>
+          <div className='h-5 w-5 m-1 animate-spin rounded-full border-b-2 border-slate-500 mt-10'></div>
+        </div>
+      ); 
     } 
-     
-    
-    
-}
+  }
+
   
   return (
     <div className="flex w-full pb-10">
 
       <div className="outputData w-4/6 md:w-9/12 bg-slate-50 rounded-l-md px-4 py-5">
-        <div id='outputDiv'>
+        <div id='outputDiv'className='relative' >
+          {dataFlag}
           <div className="m-4">
             <div className="text-xl font-bold dark:text-slate-500">{signOne>0 && signOne}</div>  
-
             <div className="font-bold text-red-600 mt-2">{state && state.error}</div>
-
             <div className="font-bold text-red-600 mt-2">{state && state.about && "About"}</div>
             <div className="text-sm text-slate-500">{state && state.about}</div>
             <div className="font-bold text-red-600 mt-2">{state &&state.career && "Career"}</div>
@@ -86,25 +95,23 @@ export default function SignCompo() {
           </div>
         </div>
       </div>
-            <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
-                <div className="flex flex-col px-4 pt-12 pb-10">
+      <div className="inputData w-2/6 md:w-3/12 bg-slate-100 rounded-r-md dark:text-slate-500">
+          <div className="flex flex-col px-4 pt-12 pb-10">
 
-                    <div className="text-xs font-bold">Enter your Sign</div>
-
-                    <form action={mySignAction}>
-                    <select className=" border rounded-md w-28 mt-2 p-1" name='sign' value={signOne} onChange={handleChange}>
-                      {options.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.text}
-                        </option>
-                      ))}
-                    </select>
-                   
-                      <div><button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" onClick={mySignActionTwo}><SubmitButton/></button></div>
-                    </form>
-                </div>
-            </div>
+              <div className="text-xs font-bold">Enter your Sign</div>
+              <form action={mySignAction}>
+                <select className=" border rounded-md w-26 text-sm mt-2 p-1" name='sign' value={signOne} onChange={handleChange}>
+                  {options.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.text}
+                    </option>
+                  ))}
+                </select>
+                <div onClick={DisplayLoading}><button className="w-16 rounded-md bg-slate-400 hover:bg-slate-500 mt-2 text-white text-sm p-1" ><SubmitButton/></button></div>
+              </form>
+          </div>
+      </div>
             
-        </div>
+    </div>
   );
 }

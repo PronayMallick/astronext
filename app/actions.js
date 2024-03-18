@@ -1,10 +1,7 @@
 'use server'
-
-import NumeroOutput from "@/components/numeroOutput";
-
  
 export async function getMySign(state, formData) {
-    const sign = formData.get('sign');
+    const sign = formData;
     try {
         if(sign != 0) {
             const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/sign?s=${sign}`, {
@@ -74,7 +71,6 @@ export async function getNumerology(state, formData) {
             },
         })  
         const data = await response.json();
-        // return data; 
         return data;
     }   catch (err) {
         let edata ={'error' : 'Server Busy..'}
@@ -84,8 +80,8 @@ export async function getNumerology(state, formData) {
 
 export async function getCompatibility(state, formData) {
     try {
-        const signOne = formData.get('signOne');
-        const signTwo = formData.get('signTwo');
+        const signOne = formData.signOne;
+        const signTwo = formData.signTwo;
         if(signOne != "Not selected" && signTwo != "Not selected") {
             const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/affinity?sign1=${signOne}&sign2=${signTwo}`, {
             method: 'GET',
@@ -106,8 +102,8 @@ export async function getCompatibility(state, formData) {
 
 export async function getHoroscope(state, formData) {
     try {
-        const time = formData.get('time');
-        const sign = formData.get('sign');
+        const time = formData.time;
+        const sign = formData.sign;
 
         if(time != 0 && sign != 0) {
             const response = await fetch(`https://horoscope-astrology.p.rapidapi.com/horoscope?day=${time}&sunsign=${sign}`, {
